@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from mainapp.forms import FormularioConsulta, FormularioLogin, FormularioAsistencia
+from mainapp.forms import FormularioConsulta, FormularioLogin, FormularioAsistencia, FormularioCreaUsuarios
 from mainapp.models import FormularioContactoDB, FormularioAsistenciaDB
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -28,17 +28,17 @@ class CreateUsersView(TemplateView):
     template_name = 'home/createusers.html'
 
     def get(self, request, *args, **kwargs):
-        formulario = UserCreationForm(request.POST)
-        return render(request, self.template_name, {'formulario': formulario, 'titulo': 'Crear cuenta de usuario',})
+        form = FormularioCreaUsuarios(request.POST)
+        return render(request, self.template_name, {'formulario': form, 'titulo': 'Crear cuenta de usuario',})
 
     def post(self, request, *args, **kwargs):
-        formulario = UserCreationForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
+        form = FormularioCreaUsuarios(request.POST)
+        if form.is_valid():
+            form.save()
             mensajes = {'enviado': True, 'resultado': 'El usuario se ha creado correctamente'}
         else:
-            mensajes = {'enviado': False, 'resultado': formulario.errors}
-        return render(request, self.template_name, {'formulario': formulario, 'mensajes': mensajes, 'titulo': 'Crear cuenta de usuario',})
+            mensajes = {'enviado': False, 'resultado': form.errors}
+        return render(request, self.template_name, {'formulario': form, 'mensajes': mensajes, 'titulo': 'Crear cuenta de usuario',})
 
 class ContactView(TemplateView):
     template_name = 'home/contactform.html'
@@ -54,6 +54,7 @@ class ContactView(TemplateView):
             'resultado': None
         }
         if form.is_valid():
+            form.save()
             nombre = form.cleaned_data['nombre']
             email = form.cleaned_data['email']
             asunto = form.cleaned_data['asunto']
