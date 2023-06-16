@@ -21,20 +21,11 @@ class FormularioCreaUsuarios(UserCreationForm):
                                             'placeholder':'',
                                             })
                                         )
-    nombre = forms.EmailField          (label="Dirección de email", required = True, max_length=30,
-                                        error_messages={
-                                            'required': 'Tiene que indicar su email',
-                                            'max_length':' La dirección de email no puede tener más de 30 caracteres'
-                                        },
-                                        widget= forms.TextInput(attrs={
-                                            'placeholder':'',
-                                            })
-                                        )
 
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'email',)
+        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'email')
 
 
 class FormularioConsulta(forms.Form):

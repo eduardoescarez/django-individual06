@@ -74,3 +74,14 @@ Para acceder al panel de administración de Django, el superusuario disponible e
 nombre de usuario : administrador
 contraseña        : CajaVecina23
 ```
+
+## Añadido Individual 06
+
+- Se han creado tres grupos : **administradores**, **trabajadores**, **clientes**. Las razones de los permisos otorgados son:
+    - **administradores**: requieren los permisos para administrar todos los elementos del sistema
+    - **trabajadores**: requieren tener permisos limitados para acceder a algunas partes del sistema, como los formularios de contacto o de asistencia
+    - **clientes**: requieren permisos para realizar menos acciones como acceder al formulario de asistencia
+
+- La pagina dinámica de creación de usuarios (/nuevousuario) ha sido mejorada para capturar los siguientes datos adicionales
+    - Nombre
+    - Apellido
